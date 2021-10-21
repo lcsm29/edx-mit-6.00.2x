@@ -32,7 +32,7 @@ def load_cows(filename):
 
 
 # Problem 1
-def greedy_cow_transport(cows,limit=10):
+def greedy_cow_transport(cows, limit=10):
     """
     Uses a greedy heuristic to determine an allocation of cows that attempts to
     minimize the number of spaceship trips needed to transport all the cows. The
@@ -54,12 +54,20 @@ def greedy_cow_transport(cows,limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
-    # TODO: Your code here
-    pass
-
+    weights, trips = {c: w for c, w in cows.items()}, []
+    while weights:
+        capacity, trip = limit, []
+        for cow in sorted(weights, key=lambda x: weights[x], reverse=True):
+            if weights[cow] <= capacity:
+                capacity -= weights[cow]
+                trip.append(cow)
+                del weights[cow]
+        trips.append(trip)
+    return trips
+        
 
 # Problem 2
-def brute_force_cow_transport(cows,limit=10):
+def brute_force_cow_transport(cows, limit=10):
     """
     Finds the allocation of cows that minimizes the number of spaceship trips
     via brute force.  The brute force algorithm should follow the following method:
@@ -79,8 +87,12 @@ def brute_force_cow_transport(cows,limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
-    # TODO: Your code here
-    pass
+    trips, shortest = [], float('inf')
+    for partition in sorted(get_partitions(cows), key=len):
+        if all(sum(cows[c] for c in trip) <= limit for trip in partition):
+            if len(partition) < shortest:
+                trips, shortest = partition, len(partition)
+    return trips
 
         
 # Problem 3
@@ -97,8 +109,13 @@ def compare_cow_transport_algorithms():
     Returns:
     Does not return anything.
     """
-    # TODO: Your code here
-    pass
+    results = {func: 0 for func in [greedy_cow_transport, brute_force_cow_transport]}
+    for func in results:
+        start = time.perf_counter_ns()
+        func(cows, limit=10)
+        end = time.perf_counter_ns()
+        results[func] = (end - start) / 1e6
+        print(f'{str(func).split()[1]} took {results[func]:,.3f}ms')
 
 
 """
@@ -113,5 +130,4 @@ print(cows)
 
 print(greedy_cow_transport(cows, limit))
 print(brute_force_cow_transport(cows, limit))
-
-
+compare_cow_transport_algorithms()

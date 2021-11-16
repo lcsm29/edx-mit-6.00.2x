@@ -63,9 +63,7 @@ In this problem set you will practice designing a simulation and implementing a 
 As with previous problem sets, please don't be discouraged by the apparent length of this assignment. There is quite a bit to read and understand, but most of the problems do not involve writing much code.
 
 ## Getting Started
-**Download and save**
-
-files you need, including:
+**Download and save** files you need, including:
 * [ps2.py](https://raw.githubusercontent.com/lcsm29/edx-mit-6.00.2x/74af34ce4235279b3849f0318cfdfb0a686472b0/ps2/ps2.py), a skeleton of the solution.
 * [ps2_visualize.py](https://raw.githubusercontent.com/lcsm29/edx-mit-6.00.2x/74af34ce4235279b3849f0318cfdfb0a686472b0/ps2/ps2_visualize.py), code to help you visualize the robot's movement (an optional - but cool! - part of this problem set).
 * [`ps2_verify_movement3X.pyc`](https://github.com/lcsm29/edx-mit-6.00.2x/tree/74af34ce4235279b3849f0318cfdfb0a686472b0/ps2), precompiled module for Python 3.X that assists with the visualization code. In ps2.py you will import the line where X matches your Python version. For example, `from ps2_verify_movement39 import testRobotMovement`

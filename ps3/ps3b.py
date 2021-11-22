@@ -2,7 +2,7 @@
 
 import random
 import pylab
-from ps3b_precompiled_39 import *
+from ps3b_precompiled_310 import *
 
 ''' 
 Begin helper code

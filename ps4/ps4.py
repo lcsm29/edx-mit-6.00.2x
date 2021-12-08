@@ -130,8 +130,8 @@ def generate_models(x, y, degs):
         a list of numpy arrays, where each array is a 1-d array of coefficients
         that minimizes the squared error of the fitting polynomial
     """
-    # TODO
-    pass
+    return [np.polyfit(x, y, deg) for deg in degs]
+
 
 # Problem 2
 def r_squared(y, estimated):
@@ -143,10 +143,14 @@ def r_squared(y, estimated):
     Returns:
         a float for the R-squared error term
     """
-    # TODO
-    pass
+    err = avg = 0
+    for i, n in enumerate(y):
+        avg += (n - avg) / (i + 1)
+        err += (n - estimated[i])**2
+    return 1 - err / sum((yi - avg)**2 for yi in y)
 
-# Problem 3
+
+# Problem 3 (Answer: 0.005)
 def evaluate_models_on_training(x, y, models):
     """
     For each regression model, compute the R-square for this model with the
@@ -168,8 +172,13 @@ def evaluate_models_on_training(x, y, models):
     Returns:
         None
     """
-    # TODO
-    pass
+    for model in models:
+        pylab.title('Evaluate model')
+        pylab.xlabel('year')
+        pylab.ylabel('temp')
+        pylab.plot(pylab.array(x), pylab.array(y), label = str(r_squared(y, model[0] * pylab.array(x) + model[1])))
+        pylab.legend(loc = 'best')
+        pylab.show()
 
 
 ### Begining of program
@@ -184,10 +193,12 @@ models = generate_models(x, y, [1])
 evaluate_models_on_training(x, y, models)
 
 
-# Problem 4: FILL IN MISSING CODE TO GENERATE y VALUES
+# Problem 4: FILL IN MISSING CODE TO GENERATE y VALUES (Problem 4-2 Answer: 0.085)
 x1 = INTERVAL_1
 x2 = INTERVAL_2
 y = []
 # MISSING LINES
+for year in INTERVAL_1:
+    y.append(np.mean(raw_data.get_yearly_temp('BOSTON', year)))
 models = generate_models(x, y, [1])    
 evaluate_models_on_training(x, y, models)
